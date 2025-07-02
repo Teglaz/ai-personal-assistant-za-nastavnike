@@ -19,3 +19,20 @@ AI alat za pomoć nastavnicima u Srbiji — generiše pripreme časova, filtrira
 **Milan** — profesor, AI entuzijasta i pokretač digitalne revolucije u učionici.
 
 > "AI za prosvetu — jer nastavnik ne sme da gori." 🔥
+
+---
+
+## 📜 Autorska prava
+
+Ova aplikacija je originalno autorsko delo **Milana Tegeltije**, 2025.
+
+Svi podaci, kod i logika sistema su zaštićeni.  
+Bez moje pismene dozvole nije dozvoljeno:
+- Kopiranje
+- Rebrendiranje
+- Komercijalna upotreba
+- Ugradnja u druge aplikacije
+
+Za saradnju ili komercijalnu licencu: **milan.tegeltija@gmail.com**
+
+
