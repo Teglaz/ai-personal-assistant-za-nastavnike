@@ -5,7 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()  # Najpre pozovi ovo, da povuče iz .env
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-print("API KLJUČ:", openai.api_key)  # Debug linija: prikazuje ključ (ne ostavljaj u realnom radu!)
+# Secure way to verify API key is loaded without exposing it
+if openai.api_key:
+    print("API KLJUČ: ✅ Uspešno učitan")
+else:
+    print("API KLJUČ: ❌ Nije pronađen u .env fajlu")
 
 try:
     response = openai.chat.completions.create(

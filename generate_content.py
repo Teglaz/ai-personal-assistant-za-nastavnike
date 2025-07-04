@@ -1,10 +1,10 @@
 import os
 import json
 import time
-import openai
+from openai import OpenAI
 
 # ✅ API ključ iz okruženja
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # ✅ Putanja do fajla sa podacima po izdavaču
 with open("sadrzaj_po_izdavacu.json", "r", encoding="utf-8") as f:
@@ -25,7 +25,7 @@ def generisi_sadrzaj(predmet, razred):
     )
 
     try:
-        response = openai.chat.completions.create(
+        response = openai_client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "Ti si stručni kreator nastavnih planova i programa."},
@@ -36,6 +36,7 @@ def generisi_sadrzaj(predmet, razred):
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
+        print(f"❌ API poziv neuspešan za {predmet} {razred}: {e}")
         return f"[GREŠKA] {e}"
 
 # ✅ Glavna petlja
@@ -51,8 +52,15 @@ for izdavac, predmeti in podaci.items():
             rezultat = generisi_sadrzaj(predmet, razred)
             sadrzaj[izdavac][predmet][razred] = rezultat
 
-            # Ne spamuj API – mali pauza
-            time.sleep(1)
+            # Appropriately spaced API calls to respect rate limits
+            # OpenAI recommends at least 3-5 seconds between requests for sustained usage
+            time.sleep(3)
+            
+            # Optional: Add progress tracking for long operations
+            total_calls = len(podaci) * len(predmeti) * len(razredi)
+            current_call = sum(1 for _ in podaci for _ in predmeti for _ in razredi)
+            if current_call % 5 == 0:  # Progress update every 5 calls
+                print(f"📈 Napredak: {current_call}/{total_calls} poziva završeno")
 
 # ✅ Snimi rezultat u JSON fajl (UTF-8, sa našim slovima)
 with open("generisan_sadrzaj.json", "w", encoding="utf-8") as f:

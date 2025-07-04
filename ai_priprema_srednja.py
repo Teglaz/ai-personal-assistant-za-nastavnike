@@ -3,19 +3,27 @@ import gradio as gr
 import os
 import json
 from dotenv import load_dotenv
-import openai
+from openai import OpenAI
 
 # Učitaj .env (API KEY)
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Učitaj izdavače iz JSON fajla
-with open("izdavaci_srednje_skole.json", encoding="utf-8") as f:
-    IZDAVACI = json.load(f)
+try:
+    with open("izdavaci_srednje_skole.json", encoding="utf-8") as f:
+        IZDAVACI = json.load(f)
+except FileNotFoundError:
+    print("❌ Fajl 'izdavaci_srednje_skole.json' nije pronađen.")
+    IZDAVACI = ["Zavod za udžbenike"]  # Fallback vrednost
 
 # Učitaj sve škole i gradove iz .txt fajla
-with open("srednje_skole_clean_SR.txt", encoding="utf-8") as f:
-    LINIJE = [line.strip() for line in f if "|" in line]
+try:
+    with open("srednje_skole_clean_SR.txt", encoding="utf-8") as f:
+        LINIJE = [line.strip() for line in f if "|" in line]
+except FileNotFoundError:
+    print("❌ Fajl 'srednje_skole_clean_SR.txt' nije pronađen.")
+    LINIJE = []  # Fallback vrednost
 
 # Gradovi i mape škola po gradu
 GRADOVI = sorted(set([linija.split("|")[0] for linija in LINIJE]))
@@ -56,7 +64,7 @@ def generisi_pripremu(izdavac, grad, skola, predmet, razred, tema, ishodi, stil)
     )
 
     try:
-        odgovor = openai.chat.completions.create(
+        odgovor = openai_client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "Ti si iskusan nastavnik koji piše digitalne pripreme za čas."},
