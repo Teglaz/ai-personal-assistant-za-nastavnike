@@ -1,38 +1,66 @@
-# AI PERSONAL ASSISTANT ZA NASTAVNIKE
+# AI Asistent za Nastavnike
 
-AI alat za pomoć nastavnicima u Srbiji — generiše pripreme časova, filtrira škole, povezuje sa planom i programom Ministarstva prosvete, koristi GPT-4, i podržava selekciju po predmetu, razredu, smeru i izdavaču.
+Web aplikacija koja nastavnicima pomaze da automatski generisu nastavne materijale koristeci Anthropic Claude AI.
 
-## 🧠 Tehnologije
+## Funkcionalnosti
+
+- **Generator kvizova** — kreira testove sa visestrukim izborom (A, B, C, D) za zadatu temu i razred
+- **Planer casa** — generise detaljan plan casa sa ciljevima, aktivnostima i evaluacijom
+- **Kreator domacih zadataka** — priprema domace zadatke prilagodjene uzrastu
+
+Sve funkcije su dostupne za **osnovnu skolu** (razredi 1–8) i **srednju skolu** (razredi 1–4).
+
+## Tehnologije
+
 - Python 3.13
-- Gradio
-- OpenAI API
-- JSON baze škola i izdavača
-- Lokalni PDF parseri
+- Django 5.2.4
+- Anthropic Claude API (`claude-opus-4-6`)
+- SQLite
 
-## ▶️ Pokretanje
-1. `python -m venv .venv`
-2. `source .venv/bin/activate`
-3. `pip install -r requirements.txt`
-4. `python ai_priprema_srednja.py`
+## Pokretanje
 
-## ✍️ Autor
-**Milan** — profesor, AI entuzijasta i pokretač digitalne revolucije u učionici.
+```bash
+# 1. Kloniraj repozitorij
+git clone https://github.com/Teglaz/ai-personal-assistant-za-nastavnike.git
+cd ai-personal-assistant-za-nastavnike
 
-> "AI za prosvetu — jer nastavnik ne sme da gori." 🔥
+# 2. Kreiraj i aktiviraj virtualno okruzenje
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
----
+# 3. Instaliraj zavisnosti
+pip install -r requirements.txt
 
-## 📜 Autorska prava
+# 4. Dodaj Anthropic API kljuc u .env fajl
+echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
 
-Ova aplikacija je originalno autorsko delo **Milana Tegeltije**, 2025.
+# 5. Pokreni server
+python manage.py runserver
+```
 
-Svi podaci, kod i logika sistema su zaštićeni.  
-Bez moje pismene dozvole nije dozvoljeno:
-- Kopiranje
-- Rebrendiranje
-- Komercijalna upotreba
-- Ugradnja u druge aplikacije
+Aplikacija je dostupna na `http://127.0.0.1:8000/`.
+
+## Struktura projekta
+
+```
+ai_asistent/        # Django konfiguracija (settings, urls)
+nastavnici/         # Glavna aplikacija
+  templates/        # HTML sabloni
+  views.py          # Logika i AI pozivi
+  urls.py           # URL rute
+manage.py
+requirements.txt
+.env                # API kljuc (nije u repozitoriju)
+```
+
+## Autor
+
+**Milan Tegeltija** — profesor, AI entuzijasta i pokretac digitalne revolucije u ucionici.
+
+> "AI za prosvetu — jer nastavnik ne sme da gori."
 
 Za saradnju ili komercijalnu licencu: **milan.tegeltija@gmail.com**
 
+---
 
+© 2025 Milan Tegeltija. Sva prava zadrzana.
