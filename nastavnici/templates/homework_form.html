@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kreator Domaćih Zadataka</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 700px; 
+            margin: 50px auto; 
+            padding: 20px; 
+            background: #f9f9f9;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, select, button { 
+            padding: 12px; 
+            margin: 8px 0; 
+            width: 100%; 
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button { 
+            background: #dc3545; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        button:hover { background: #c82333; }
+        label { 
+            font-weight: bold; 
+            color: #333; 
+            display: block; 
+            margin-top: 15px;
+        }
+        h1 { color: #dc3545; text-align: center; }
+        .back-link { 
+            display: inline-block; 
+            margin-top: 20px; 
+            color: #007cba; 
+            text-decoration: none; 
+        }
+        .back-link:hover { text-decoration: underline; }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row > div {
+            flex: 1;
+        }
+        .form-row select, .form-row input {
+            width: calc(100% - 24px);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>📝 Kreator Domaćih Zadataka</h1>
+        <form method="post">
+            {% csrf_token %}
+            
+            <label>Predmet:</label>
+            <select name="predmet" required>
+                <option value="">Izaberite predmet</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Srpski jezik">Srpski jezik</option>
+                <option value="Engleski jezik">Engleski jezik</option>
+                <option value="Fizika">Fizika</option>
+                <option value="Hemija">Hemija</option>
+                <option value="Biologija">Biologija</option>
+                <option value="Istorija">Istorija</option>
+                <option value="Geografija">Geografija</option>
+                <option value="Informatika">Informatika</option>
+                <option value="Likovna kultura">Likovna kultura</option>
+                <option value="Muzička kultura">Muzička kultura</option>
+                <option value="Fizičko vaspitanje">Fizičko vaspitanje</option>
+            </select>
+
+            <label>Tema:</label>
+            <input type="text" name="tema" placeholder="npr. Razlomci, Pitagorina teorema, Padeži..." required>
+
+            <div class="form-row">
+                <div>
+                    <label>Razred:</label>
+                    <select name="razred" required>
+                        <option value="">Razred</option>
+                        <option value="1">1. razred</option>
+                        <option value="2">2. razred</option>
+                        <option value="3">3. razred</option>
+                        <option value="4">4. razred</option>
+                        <option value="5">5. razred</option>
+                        <option value="6">6. razred</option>
+                        <option value="7">7. razred</option>
+                        <option value="8">8. razred</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Težina:</label>
+                    <select name="tezina" required>
+                        <option value="">Težina</option>
+                        <option value="Lako">Lako</option>
+                        <option value="Srednje">Srednje</option>
+                        <option value="Teško">Teško</option>
+                        <option value="Mešovito">Mešovito (različite težine)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Tip zadatka:</label>
+                    <select name="tip_zadatka" required>
+                        <option value="">Tip zadatka</option>
+                        <option value="Vežbanje">Vežbanje</option>
+                        <option value="Ponavljanje">Ponavljanje</option>
+                        <option value="Priprema za test">Priprema za test</option>
+                        <option value="Kreativni zadatak">Kreativni zadatak</option>
+                        <option value="Istraživački zadatak">Istraživački zadatak</option>
+                        <option value="Kombinovani">Kombinovani</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Broj zadataka:</label>
+                    <select name="broj_zadataka" required>
+                        <option value="">Broj</option>
+                        <option value="3">3 zadatka</option>
+                        <option value="5">5 zadataka</option>
+                        <option value="7">7 zadataka</option>
+                        <option value="10">10 zadataka</option>
+                        <option value="15">15 zadataka</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Izdavač udžbenika:</label>
+            <select name="izdavac" required>
+                <option value="">Izaberite izdavača</option>
+                <option value="Vulkan znanje">Vulkan znanje</option>
+                <option value="Zavod za udžbenike">Zavod za udžbenike</option>
+                <option value="Klett">Klett</option>
+                <option value="Novi Logos">Novi Logos</option>
+                <option value="Freska">Freska</option>
+                <option value="Data Status">Data Status</option>
+                <option value="BIGZ školstvo">BIGZ školstvo</option>
+                <option value="Eduka">Eduka</option>
+                <option value="Kreativni centar">Kreativni centar</option>
+                <option value="The English Book">The English Book</option>
+                <option value="Gerundijum">Gerundijum</option>
+                <option value="Nova škola">Nova škola</option>
+                <option value="Saznanje">Saznanje</option>
+                <option value="ATOS">ATOS</option>
+                <option value="Sopstveni materijal">Sopstveni materijal</option>
+                <option value="Ostalo">Ostalo</option>
+            </select>
+
+            <button type="submit">📋 Kreiraj Domaći Zadatak</button>
+        </form>
+        
+        <a href="/" class="back-link">← Početna strana</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generator Kvizova</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 700px; 
+            margin: 50px auto; 
+            padding: 20px; 
+            background: #f9f9f9;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, select, button { 
+            padding: 12px; 
+            margin: 8px 0; 
+            width: 100%; 
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button { 
+            background: #007cba; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        button:hover { background: #005a87; }
+        label { 
+            font-weight: bold; 
+            color: #333; 
+            display: block; 
+            margin-top: 15px;
+        }
+        h1 { color: #007cba; text-align: center; }
+        .back-link { 
+            display: inline-block; 
+            margin-top: 20px; 
+            color: #007cba; 
+            text-decoration: none; 
+        }
+        .back-link:hover { text-decoration: underline; }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row > div {
+            flex: 1;
+        }
+        .form-row select, .form-row input {
+            width: calc(100% - 24px);
+        }
+        .quiz-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007cba;
+        }
+        .quiz-info p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>🎯 Generator Kvizova</h1>
+        
+        <div class="quiz-info">
+            <p><strong>ℹ️ Napomene:</strong></p>
+            <p>• AI će generisati 5 pitanja sa po 4 opcije (A, B, C, D)</p>
+            <p>• Kviz će biti prilagođen uzrastu učenika</p>
+            <p>• Sva pitanja će biti na srpskom jeziku</p>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <label>Predmet:</label>
+            <select name="predmet" required>
+                <option value="">Izaberite predmet</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Srpski jezik">Srpski jezik</option>
+                <option value="Engleski jezik">Engleski jezik</option>
+                <option value="Fizika">Fizika</option>
+                <option value="Hemija">Hemija</option>
+                <option value="Biologija">Biologija</option>
+                <option value="Istorija">Istorija</option>
+                <option value="Geografija">Geografija</option>
+                <option value="Informatika">Informatika</option>
+                <option value="Likovna kultura">Likovna kultura</option>
+                <option value="Muzička kultura">Muzička kultura</option>
+                <option value="Fizičko vaspitanje">Fizičko vaspitanje</option>
+            </select>
+
+            <label>Tema kviza:</label>
+            <input type="text" name="tema" placeholder="npr. Razlomci, Pitagorina teorema, Padeži..." required>
+
+            <div class="form-row">
+                <div>
+                    <label>Razred:</label>
+                    <select name="razred" required>
+                        <option value="">Izaberite razred</option>
+                        <option value="1">1. razred</option>
+                        <option value="2">2. razred</option>
+                        <option value="3">3. razred</option>
+                        <option value="4">4. razred</option>
+                        <option value="5">5. razred</option>
+                        <option value="6">6. razred</option>
+                        <option value="7">7. razred</option>
+                        <option value="8">8. razred</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Težina kviza:</label>
+                    <select name="tezina" required>
+                        <option value="">Težina</option>
+                        <option value="Lako">Lako</option>
+                        <option value="Srednje">Srednje</option>
+                        <option value="Teško">Teško</option>
+                        <option value="Mešovito">Mešovito</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Izdavač udžbenika:</label>
+            <select name="izdavac" required>
+                <option value="">Izaberite izdavača</option>
+                <option value="Vulkan znanje">Vulkan znanje</option>
+                <option value="Zavod za udžbenike">Zavod za udžbenike</option>
+                <option value="Klett">Klett</option>
+                <option value="Novi Logos">Novi Logos</option>
+                <option value="Freska">Freska</option>
+                <option value="Data Status">Data Status</option>
+                <option value="BIGZ školstvo">BIGZ školstvo</option>
+                <option value="Eduka">Eduka</option>
+                <option value="Kreativni centar">Kreativni centar</option>
+                <option value="The English Book">The English Book</option>
+                <option value="Gerundijum">Gerundijum</option>
+                <option value="Nova škola">Nova škola</option>
+                <option value="Saznanje">Saznanje</option>
+                <option value="ATOS">ATOS</option>
+                <option value="Sopstveni materijal">Sopstveni materijal</option>
+                <option value="Ostalo">Ostalo</option>
+            </select>
+
+            <button type="submit">🎯 Generiši Kviz</button>
+        </form>
+        
+        <a href="/" class="back-link">← Početna strana</a>
+    </div>
+</body>
+</html>

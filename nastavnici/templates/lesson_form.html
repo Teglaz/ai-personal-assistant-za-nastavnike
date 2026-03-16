@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planer Lekcija - AI Asistent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .btn-secondary {
+            background-color: #757575;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #616161;
+        }
+        .help-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .info-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Planer Lekcija</h1>
+            <p class="subtitle">Osnovna škola</p>
+        </div>
+
+        <div class="form-container">
+            <div class="info-box">
+                <h3>📝 Kreirajte plan lekcije sa AI asistentom</h3>
+                <p>Unesite osnovne informacije o času i AI će generisati detaljan plan sa ciljevima, aktivnostima i resursima.</p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="predmet">Predmet:</label>
+                    <input type="text" id="predmet" name="predmet" required 
+                           placeholder="npr. Matematika, Srpski jezik, Priroda i društvo...">
+                </div>
+
+                <div class="form-group">
+                    <label for="tema">Tema časa:</label>
+                    <input type="text" id="tema" name="tema" required 
+                           placeholder="npr. Sabiranje dvocifrenih brojeva, Padežи, Vodeni ciklus...">
+                    <p class="help-text">Budite specifični - to pomaže AI-ju da generiše bolji plan</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="razred">Razred:</label>
+                    <select id="razred" name="razred" required>
+                        <option value="">-- Izaberite razred --</option>
+                        <option value="1">1. razred</option>
+                        <option value="2">2. razred</option>
+                        <option value="3">3. razred</option>
+                        <option value="4">4. razred</option>
+                        <option value="5">5. razred</option>
+                        <option value="6">6. razred</option>
+                        <option value="7">7. razred</option>
+                        <option value="8">8. razred</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trajanje">Trajanje časa:</label>
+                    <select id="trajanje" name="trajanje" required>
+                        <option value="45">45 minuta (standardni čas)</option>
+                        <option value="30">30 minuta (skraćeni čas)</option>
+                        <option value="90">90 minuta (blok čas)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tip_casa">Tip časa:</label>
+                    <select id="tip_casa" name="tip_casa" required>
+                        <option value="obrada">Obrada novog gradiva</option>
+                        <option value="utvrdjivanje">Utvrđivanje gradiva</option>
+                        <option value="vezba">Vežbanje</option>
+                        <option value="provera">Provera znanja</option>
+                        <option value="kombinovano">Kombinovano</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ciljevi">Ciljevi časa (opciono):</label>
+                    <textarea id="ciljevi" name="ciljevi" 
+                              placeholder="Ako imate specifične ciljeve koje želite postići, unesite ih ovde..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="napomene">Dodatne napomene (opciono):</label>
+                    <textarea id="napomene" name="napomene" 
+                              placeholder="Posebni zahtevi, prilagođavanja za učenike, dostupni materijali..."></textarea>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-primary">📋 Generiši Plan</button>
+                    <a href="/nastavnici/" class="btn btn-secondary">← Nazad</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

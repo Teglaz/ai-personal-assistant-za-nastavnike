@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planer Lekcija - Srednja škola</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #2E7D32;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2E7D32;
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background-color: #2E7D32;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #1B5E20;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .btn-secondary {
+            background-color: #757575;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #616161;
+        }
+        .help-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .info-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #2E7D32;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #1B5E20;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Planer Lekcija</h1>
+            <p class="subtitle">Srednja škola • Gimnazija, Tehnička, Vojna škola</p>
+        </div>
+
+        <div class="form-container">
+            <div class="info-box">
+                <h3>📝 Kreirajte profesionalan plan časa</h3>
+                <p>AI asistent će generisati detaljan plan prilagođen srednjoškolskom nivou sa metodama rada, ishodima i evaluacijom.</p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="tip_skole">Tip škole:</label>
+                    <select id="tip_skole" name="tip_skole" required>
+                        <option value="">-- Izaberite tip škole --</option>
+                        <option value="gimnazija">Gimnazija</option>
+                        <option value="tehnicka">Tehnička škola</option>
+                        <option value="vojna">Vojna škola</option>
+                        <option value="ekonomska">Ekonomska škola</option>
+                        <option value="medicinska">Medicinska škola</option>
+                        <option value="umetnička">Umetnička škola</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="predmet">Predmet:</label>
+                    <input type="text" id="predmet" name="predmet" required 
+                           placeholder="npr. Matematika, Fizika, Srpski jezik i književnost...">
+                </div>
+
+                <div class="form-group">
+                    <label for="tema">Tema časa:</label>
+                    <input type="text" id="tema" name="tema" required 
+                           placeholder="npr. Izvodi funkcija, Romantizam u književnosti, Termodinamički procesi...">
+                    <p class="help-text">Što preciznija tema, to bolji plan časa</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="razred">Razred:</label>
+                    <select id="razred" name="razred" required>
+                        <option value="">-- Izaberite razred --</option>
+                        <option value="1">1. razred</option>
+                        <option value="2">2. razred</option>
+                        <option value="3">3. razred</option>
+                        <option value="4">4. razred</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tip_casa">Tip časa:</label>
+                    <select id="tip_casa" name="tip_casa" required>
+                        <option value="obrada">Obrada novog gradiva</option>
+                        <option value="utvrdjivanje">Utvrđivanje i sistematizacija</option>
+                        <option value="vezba">Vežbanje i primena</option>
+                        <option value="laboratorija">Laboratorijske vežbe</option>
+                        <option value="provera">Provera znanja</option>
+                        <option value="kombinovano">Kombinovano</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Metode rada:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="frontalni" name="metode" value="frontalni" checked>
+                            <label for="frontalni">Frontalni rad</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="grupni" name="metode" value="grupni">
+                            <label for="grupni">Grupni rad</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="individualni" name="metode" value="individualni">
+                            <label for="individualni">Individualni rad</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="diskusija" name="metode" value="diskusija">
+                            <label for="diskusija">Diskusija</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="istrazivacki" name="metode" value="istrazivacki">
+                            <label for="istrazivacki">Istraživački rad</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="prakticni" name="metode" value="prakticni">
+                            <label for="prakticni">Praktični rad</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ishodi">Očekivani ishodi učenja (opciono):</label>
+                    <textarea id="ishodi" name="ishodi" 
+                              placeholder="Šta će učenici moći da znaju/urade nakon ovog časa?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="napomene">Dodatne napomene (opciono):</label>
+                    <textarea id="napomene" name="napomene" 
+                              placeholder="Potrebni materijali, priprema za maturu, korelacija sa drugim predmetima..."></textarea>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-primary">📋 Generiši Plan</button>
+                    <a href="/nastavnici/srednja/" class="btn btn-secondary">← Nazad</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
